@@ -2,6 +2,7 @@ import serial
 import database
 import protocol
 import time
+import power_indication
 
 class SkladInterface:
     def __init__(self):
@@ -50,7 +51,7 @@ class Daemon:
     def __init__(self):
         self.db = database.Database()
         self.sklad = SkladInterface()
-        self.power_indication = PowerIndication()
+        self.power_indication = power_indication.PowerIndication()
         print self.db.getFirstCommand()
     def loop(self):
         if self.power_indication.loop():
