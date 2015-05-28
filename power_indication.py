@@ -21,8 +21,8 @@ class PowerIndication:
 			self.eth_led_state = True
 			self.power_button_hold = False
 	def loop(self):
-			self.oldrx = rx
-			self.oldtx = tx
+			self.oldrx = self.rx
+			self.oldtx = self.tx
 			self.frx.seek(0)
 			self.ftx.seek(0)
 			self.rx = int(frx.read().strip())
