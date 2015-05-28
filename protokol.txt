@@ -1,0 +1,14 @@
+0x00 - N_ACK 1. argument chybova hlaska
+0x01 - ACK 1. argument - argc, pak nejaka odpoved
+0x02 - move to position se 2 argumentama (1. mensi, 2. vetsi cislo Uint16)
+0x03 - vytahni se 2 parametrama kolik direk
+0x04 - cut
+0x05 - init - Kuba odpovida UInt16 delku
+0x06 - log message - promenna delka bez argc - ukladat do souboru
+
+Chybove kody
+0x00 - Unknown command parametr - 2. argument cislo ktery prislo
+0x01 - neinicializovan
+0x02 - nekdo zmackl stop tlacitko - pote znova zinicializovat
+0x03 - motor error - motor dojel na konec, uzivatel s tim musi hejbnout - pote znova zinicialzovat
+0x04 - cut error - malem jsem si ucvakl dratek - po teto chybe znova zinicializovat
