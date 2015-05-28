@@ -25,8 +25,8 @@ class PowerIndication:
 			self.oldtx = self.tx
 			self.frx.seek(0)
 			self.ftx.seek(0)
-			self.rx = int(frx.read().strip())
-			self.tx = int(ftx.read().strip())
+			self.rx = int(self.frx.read().strip())
+			self.tx = int(self.ftx.read().strip())
 			os.system("ethtool eth0 | grep 'Link detected:' > tmp.out")
 			output = open("tmp.out", "r").read().strip()
 			if(output == "Link detected: yes"):
