@@ -56,7 +56,7 @@ class Daemon:
     def loop(self):
         if self.power_indication.loop():
             self.uninitialize()
-            self.power_indication.poweroff()
+            self.power_indication.powerOff()
         self.sklad.read()
         print "Loop"
         command = self.db.getFirstCommand()
