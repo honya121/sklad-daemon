@@ -8,12 +8,13 @@ class SkladInterface:
     def __init__(self):
         #self.serial = serial.Serial(0)
         #self.serial = serial.serial_for_url('loop://', timeout=1)
-        self.serial = serial.Serial("/dev/ttyAMA0", baudrate=115200, timeout=3)
+        self.serial = serial.Serial("/dev/ttyAMA0", baudrate=115200, timeout=1)
         self.protocol = protocol.protocol_t(self.serial.write)
+        distances = self.readConf("distances.conf")
         self.locked = 0
-        self.start_pos = 1810
-        self.end_pos = 41240
-        self.tray_count = 59
+        self.start_pos = distances[1]
+        self.end_pos = distances[2]
+        self.tray_count = distances[0]
         self.writePower()
         self.read()
         time.sleep(4)
@@ -21,6 +22,17 @@ class SkladInterface:
         time.sleep(6)
         self.writeMonitorPower()
         self.read()
+
+    def readConf(self, filename):
+        distances = []
+        fp = fopen(filename, "r");
+        for line in fp:
+            if line[0] is not "#":
+                for s in line.split():
+                    if s.isdigit():
+                        distances.append(int(s))
+        fp.close()
+        return distances
     def writeMonitorPower(self):
         self.protocol.send(0x07, [0x01], self.responseSended)
         self.locked = 1
