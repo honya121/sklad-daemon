@@ -25,7 +25,7 @@ class SkladInterface:
 
     def readConf(self, filename):
         distances = []
-        fp = fopen(filename, "r");
+        fp = open(filename, "r");
         for line in fp:
             if line[0] is not "#":
                 for s in line.split():
