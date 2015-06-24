@@ -10,7 +10,7 @@ class SkladInterface:
         #self.serial = serial.serial_for_url('loop://', timeout=1)
         self.serial = serial.Serial("/dev/ttyAMA0", baudrate=115200, timeout=1)
         self.protocol = protocol.protocol_t(self.serial.write)
-        distances = self.readConf("distances.conf")
+        distances = self.readConf("distances.conf.local")
         self.locked = 0
         self.start_pos = distances[1]
         self.end_pos = distances[2]
