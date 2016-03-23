@@ -3,6 +3,7 @@ import database
 import protocol
 import time
 import power_indication
+import device
 
 class SkladInterface:
     def __init__(self):
@@ -62,14 +63,13 @@ class SkladInterface:
 class Daemon:
     def __init__(self):
         self.db = database.Database()
-        self.sklad = SkladInterface()
+        self.sklad = device.Device(serial_input, serial_output)
+        self.sklad.init()
         self.power_indication = power_indication.PowerIndication()
-        print self.db.getFirstCommand()
     def loop(self):
         if self.power_indication.loop():
-            self.uninitialize()
             self.power_indication.powerOff()
-        self.sklad.read()
+        self.sklad.run()
         print "Loop"
         command = self.db.getFirstCommand()
         if command:
@@ -81,18 +81,13 @@ class Daemon:
                 print "Sklad error: %d" % (result)
     def writeCommand(self, command):
         print "writing move %d" % (command[5])
-        self.sklad.writeMove(command[5])
-        time.sleep(1)
+        self.sklad.move(command[5])
         print "writing pull"
-        self.sklad.writePull(command[6])
-        time.sleep(0.5*command[6])
+        self.sklad.pull(command[6])
         print "writing cut"
-        self.sklad.writeCut()
-        time.sleep(0.5)
+        self.sklad.cut()
         print "finished writing command"
         return 0
-    def uninitialize(self):
-        pass;
 daemon = Daemon()
 while True:
     daemon.loop()
