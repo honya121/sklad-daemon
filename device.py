@@ -37,6 +37,8 @@ class Device:
         self.queue.append([0x04, []])
     def init(self):
         self.queue.append([0x05, []])
+    def power(self):
+        self.queue.append([0x06, []]);
 
     def move_callback(self, cmd, packetNum, argv):
         self.locked = false;

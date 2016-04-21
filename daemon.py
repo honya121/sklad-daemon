@@ -65,9 +65,11 @@ class Daemon:
         self.db = database.Database()
         self.sklad = device.Device(serial_input, serial_output)
         self.sklad.init()
+        self.sklad.power()
         self.power_indication = power_indication.PowerIndication()
     def loop(self):
         if self.power_indication.loop():
+            self.sklad.power();
             self.power_indication.powerOff()
         self.sklad.run()
         print "Loop"
